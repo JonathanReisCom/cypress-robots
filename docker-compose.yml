@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  # app:
+  #   container_name: "app"
+  #   build:
+  #     context: .
+  #     shm_size: '2gb'
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - 8000:8000
+  #   restart: always
+  #   volumes:
+  #     # MAPEAR A PASTA INTEIRA PARA DESENVOLVIMENTO LOCAL
+  #     - .:/app/
+  #     # IGNORAR AS PASTAS "node_modules" e "static"
+  #     - /app/node_modules/
+  #     - /app/dist/
+
+  web:
+    image: apache
+    build: ./webapp
+    container_name: apache
+    restart: always
+    ports:
+      - "8080:80"
+
+  e2e:
+    image: cypress
+    build: ./e2e
+    container_name: cypress
+    depends_on:
+      - web
+    environment:
+      - CYPRESS_baseUrl=http://web
+    command: npx cypress run
+    volumes:
+      - ./e2e/cypress:/app/cypress
+      - ./e2e/cypress.config.js:/app/cypress.config.js
