@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    // FERRAMENTA DE GIT
+    "eamodio.gitlens",
+    // DOCKER
+    "ms-azuretools.vscode-docker",
+    // FORMATADOR E INDENTADOR
+    "esbenp.prettier-vscode",
+    "oderwat.indent-rainbow"
+  ]
+}
