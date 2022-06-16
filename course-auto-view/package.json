@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com> (https://glebbahmutov.com/)",
+  "author": "Jonathan Reis <jonathan.reis@gmail.com> (https://github.com/JonathanReisCom)",
   "license": "ISC",
   "private": true,
   "devDependencies": {

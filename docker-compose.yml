@@ -1,23 +1,6 @@
 version: "3"
 
 services:
-  # app:
-  #   container_name: "app"
-  #   build:
-  #     context: .
-  #     shm_size: '2gb'
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - 8000:8000
-  #   restart: always
-  #   volumes:
-  #     # MAPEAR A PASTA INTEIRA PARA DESENVOLVIMENTO LOCAL
-  #     - .:/app/
-  #     # IGNORAR AS PASTAS "node_modules" e "static"
-  #     - /app/node_modules/
-  #     - /app/dist/
-
   web:
     image: apache
     build: ./webapp
@@ -26,15 +9,27 @@ services:
     ports:
       - "8080:80"
 
-  e2e:
+  cypress:
     image: cypress
-    build: ./e2e
+    build: ./course-auto-view
     container_name: cypress
     depends_on:
       - web
     environment:
       - CYPRESS_baseUrl=http://web
-    command: npx cypress run
+      - DISPLAY
+    # command: npx cypress run
+    # command: npx cypress open
+    # command: npx cypress open --headed
+    # command: npx cypress open --headed --browser electron
+    command:
+      - /bin/sh
+      - -ec
+      - |
+          echo "------------- START CYPRESS DEV MODE"
+          npx cypress open
+          # npx cypress run
+
     volumes:
-      - ./e2e/cypress:/app/cypress
-      - ./e2e/cypress.config.js:/app/cypress.config.js
+      - ./course-auto-view/cypress:/app/cypress
+      - ./course-auto-view/cypress.config.js:/app/cypress.config.js
